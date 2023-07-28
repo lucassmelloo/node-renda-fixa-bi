@@ -1,0 +1,23 @@
+{
+  "name": "renda-fixa-bi",
+  "version": "1.0.0",
+  "description": "This project aims to feed a database that will be used to create a dashboard to monitor your fixed income investments",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lucassmelloo/node-renda-fixa-bi.git"
+  },
+  "author": "Lucas de Mello",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucassmelloo/node-renda-fixa-bi/issues"
+  },
+  "homepage": "https://github.com/lucassmelloo/node-renda-fixa-bi#readme",
+  "dependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
