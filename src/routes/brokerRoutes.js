@@ -30,8 +30,9 @@ router.post('/',(req,res)=>{
 
 router.put('/:id',(req,res)=>{
     let index = brokers.findIndex(broker => broker.id == req.params.id)
-    brokers[index].title = 
-    res.status(200).send(index);
+    brokers[index].title = req.body.title;
+
+    res.status(200).send(brokers);
 });
 
 export default router;
