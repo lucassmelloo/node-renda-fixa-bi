@@ -1,8 +1,8 @@
-import express from  'express';
-import BrokerRoutes from './BrokerRoutes.js'
+const express = require('express');
+const brokerRoutes =  require('./BrokerRoutes.js');
 
 const router = express.Router();
 
-router.use('/brokers', BrokerRoutes);
+router.use('/brokers', brokerRoutes);
 
-export default router;
+module.exports = router;

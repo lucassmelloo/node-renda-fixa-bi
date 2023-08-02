@@ -1,6 +1,6 @@
-import { Sequelize } from 'sequelize';
+const Sequelize = require('sequelize');
 
-import dotenv from 'dotenv';
+const dotenv = require('dotenv');
 dotenv.config()
 
 const connection = new Sequelize(
@@ -14,10 +14,10 @@ const connection = new Sequelize(
 );
 
 try {
-  await connection.authenticate();
+  connection.authenticate();
   console.log('Conexão com o DB relizada.');
 } catch (error) {
   throw new Error('Conexão com o banco de dados nao realizada: ' + error);
 }
 
-export default connection;
+module.exports = connection;
