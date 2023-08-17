@@ -1,4 +1,4 @@
-
+const database = require('../models')
 
 const brokers = [
     {
@@ -13,24 +13,42 @@ const brokers = [
 
 class BrokersController {
 
-    list(req, res)
+    static async list(req, res)
     {
-        res.status(200).json(brokers);
+        try
+        {
+            const dbBrokers = await database.Brokers.findAll();
+            return res.status(200).json(dbBrokers);
+        }
+        catch(error)
+        {
+            return res.status(500).json(error.message)
+        }
     }
 
-    get(req, res)
+
+    static async get(req, res)
     {
-        let index = brokers.findIndex(broker => broker.id == req.params.id)
-        res.status(200).json(brokers[index]);
+        try
+        {
+            let index = await database.Brokers.findAll({
+                where: {id: req.params.id}
+            })
+            res.status(200).json(index);
+        }
+        catch(error)
+        {
+            return res.status(500).json(error.message)
+        }
     }
 
-    create(req, res)
+    static async create(req, res)
     {
         brokers.push(req.body);
         res.status(200).json(brokers);
     }
 
-    edit(req, res)
+    static async edit(req, res)
     {
         let index = brokers.findIndex(broker => broker.id == req.params.id)
         brokers[index].name = req.body.name;
@@ -38,7 +56,7 @@ class BrokersController {
         res.status(200).send(brokers);
     }
 
-    delete(req, res)
+    static async delete(req, res)
     {
         let index = brokers.findIndex(broker => broker.id == req.params.id)
     
@@ -52,4 +70,4 @@ class BrokersController {
 
 }
 
-module.exports = new BrokersController();
+module.exports = BrokersController;
