@@ -1,15 +1,4 @@
-const database = require('../models')
-
-const brokers = [
-    {
-        id:1,
-        "name":"Inter Bank"
-    },
-    {
-        id:2,
-        "name":"XP Bank"
-    }
-];
+const { Brokers } = require('../models')
 
 class BrokersController {
 
@@ -17,8 +6,8 @@ class BrokersController {
     {
         try
         {
-            const dbBrokers = await database.Brokers.findAll();
-            return res.status(200).json(dbBrokers);
+            const brokers = await Brokers.findAll();
+            return res.status(200).json(brokers);
         }
         catch(error)
         {
@@ -26,15 +15,12 @@ class BrokersController {
         }
     }
 
-
     static async get(req, res)
     {
         try
         {
-            let index = await database.Brokers.findAll({
-                where: {id: req.params.id}
-            })
-            res.status(200).json(index);
+            let broker = await Brokers.findByPk( req.params.id);
+            res.status(200).json(broker);
         }
         catch(error)
         {
@@ -44,28 +30,66 @@ class BrokersController {
 
     static async create(req, res)
     {
-        brokers.push(req.body);
-        res.status(200).json(brokers);
+        try
+        {
+            let broker = await Brokers.create({
+                name: req.body.name
+            });
+
+            await broker.save();
+
+            res.status(200).json(broker);
+        }
+        catch(error)
+        {
+            return res.status(500).json(error.message)
+        }
     }
 
     static async edit(req, res)
     {
-        let index = brokers.findIndex(broker => broker.id == req.params.id)
-        brokers[index].name = req.body.name;
+        try
+        {
+            let broker = await Brokers.findByPk(req.params.id)
+            if(broker !== null)
+            {
+                broker.name = req.body.name;
+                broker.save();
+                res.status(200).send(broker);
+            }
+            else 
+            {
+                res.status(404).json({ message: 'Broker not found' });
+            }
+        }
+        catch(error)
+        {
+            res.status(500).json(error.message);
+        }
     
-        res.status(200).send(brokers);
     }
 
     static async delete(req, res)
     {
-        let index = brokers.findIndex(broker => broker.id == req.params.id)
-    
-        if (index >= 0) {
-            brokers.splice(index, 1);
-            res.status(200).json(brokers);
-        } else {
-            res.status(404).json({ message: 'ID não encontrado no array' });
+        try
+        {
+            let index = await Brokers.findByPk( req.params.id);
+
+            if (index != null) 
+            {
+                await index.destroy();
+                res.status(200).json(index);
+            } 
+            else 
+            {
+                res.status(404).json({ message: 'Broker not found' });
+            }
         }
+        catch(error)
+        {
+            res.status(500).json(error.message);
+        }
+    
     }
 
 }

@@ -1,7 +1,7 @@
-const express = require('express');
+const { Router } = require('express');
 const BrokerController = require('../controllers/BrokersController.js');
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', BrokerController.list);
 
