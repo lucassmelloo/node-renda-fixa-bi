@@ -20,7 +20,16 @@ class BrokersController {
         try
         {
             let broker = await Brokers.findByPk( req.params.id);
-            res.status(200).json(broker);
+            if(broker !== null)
+            {
+                broker.name = req.body.name;
+                broker.save();
+                res.status(200).json(broker);
+            }
+            else
+            {
+                res.status(404).json({ message: 'Broker not found' });
+            }
         }
         catch(error)
         {

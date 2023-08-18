@@ -1,0 +1,51 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title":"Node Renda Fixa BI",
+        "description":"Essa API fornece um meio de cadastrar e manipular os dados de investimentos de Renda Fixas.",
+        "termsOfService":"http://localhost:8888/swagger/terms",
+        "contact":{
+            "email":"lucasmellovieira99@gmail.com"
+        },
+        "version":"1.0.0"
+    },
+    "servers":[
+        {
+            "url":"http://localhost:8888",
+            "description":"API de Teste"
+        }
+    ],
+    "paths": {
+        "/brokers":{
+            "get":{
+                "summary":"Listagem de Corretoras.",
+                "description":"Rota para consulta todas as corretoras existentes no banco",
+                "tags":["Brokers"]
+            },
+            "post":{
+                "summary":"Cria uma Corretora.",
+                "description":"Rota para consulta todas as corretoras existentes no banco",
+                "tags":["Brokers"]
+            }
+        },
+        "/brokers/{id}":{
+            "put":{
+                "summary":"Edita uma Corretora.",
+                "description":"Rota para consulta todas as corretoras existentes no banco",
+                "tags":["Brokers"]
+            },
+            "get":{
+                "summary":"Retorna uma Corretora.",
+                "description":"Rota para consulta todas as corretoras existentes no banco",
+                "tags":["Brokers"]
+            },
+            "delete":{
+                "summary":"Deleta uma Corretora.",
+                "description":"Rota para consulta todas as corretoras existentes no banco",
+                "tags":["Brokers"]
+            }
+        }
+    }
+
+
+}
