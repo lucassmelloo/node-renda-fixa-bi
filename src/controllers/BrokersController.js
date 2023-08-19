@@ -22,8 +22,6 @@ class BrokersController {
             let broker = await Brokers.findByPk( req.params.id);
             if(broker !== null)
             {
-                broker.name = req.body.name;
-                broker.save();
                 res.status(200).json(broker);
             }
             else
