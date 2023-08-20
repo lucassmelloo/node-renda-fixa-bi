@@ -12,20 +12,47 @@
     "servers":[
         {
             "url":"http://localhost:8888",
-            "description":"API de Teste"
+            "description":"API de Teste."
         }
     ],
     "paths": {
         "/brokers":{
             "get":{
+                "operationId": "getBrokers",
                 "summary":"Listagem de Corretoras.",
-                "description":"Rota para consulta todas as corretoras existentes no banco",
-                "tags":["Brokers"]
+                "description":"Rota para consulta todas as corretoras existentes no banco.",
+                "tags":["Brokers"],
+                "responses":{
+                    "200":{
+                        "description":"Corretoras consultadas com sucesso, retorando corretoras castradas."
+                    }
+                }
             },
             "post":{
                 "summary":"Cria uma Corretora.",
-                "description":"Rota para consulta todas as corretoras existentes no banco",
-                "tags":["Brokers"]
+                "description":"Rota criação de novas corretoras.",
+                "tags":["Brokers"],
+                "requestBody":{
+                    "content":{
+                        "application/json": {
+                            "schemas":{
+                                "$ref":"#/components/schemas/Broker"
+                            },
+                            "examples": {
+                                "broker":{
+                                    "value":{
+                                        "name":"Santander"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Corretora cadastrada com sucesso, retorando objeto da nova corretora."
+                    }
+                }
             }
         },
         "/brokers/{brokerId}":{
@@ -56,7 +83,7 @@
                             "examples": {
                                 "broker":{
                                     "value":{
-                                        "name":"Sanatander"
+                                        "name":"Santander"
                                     }
                                 }
                             }
@@ -68,19 +95,55 @@
                         "description":"Operação realizada com sucesso, retorando a corretora modificada."
                     },
                     "404":{
-                        "description":"Broker not found."
+                        "description":"Corretora não encontrada."
                     }
                 }
             },
             "get":{
                 "summary":"Retorna uma Corretora.",
                 "description":"Rota para consulta todas as corretoras existentes no banco",
-                "tags":["Brokers"]
+                "tags":["Brokers"],
+                "parameters":[
+                    {
+                        "name":"brokerId",
+                        "in":"path",
+                        "description":"ID da corretora consultada",
+                        "required":true,
+                        "type":"integer",
+                        "format":"int64"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Operação realizada com sucesso, retorando a corretora."
+                    },
+                    "404":{
+                        "description":"Corretora não encontrada."
+                    }
+                }
             },
             "delete":{
                 "summary":"Deleta uma Corretora.",
                 "description":"Rota para consulta todas as corretoras existentes no banco",
-                "tags":["Brokers"]
+                "tags":["Brokers"],
+                "parameters":[
+                    {
+                        "name":"brokerId",
+                        "in":"path",
+                        "description":"ID da corretora a ser deletada",
+                        "required":true,
+                        "type":"integer",
+                        "format":"int64"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"Operação realizada com sucesso, retorando a corretora deletada."
+                    },
+                    "404":{
+                        "description":"Corretora não encontrada."
+                    }
+                }
             }
         }
     },
